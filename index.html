@@ -7,11 +7,11 @@
   <!--
   TODO:
 
-  - draggable via: https://jqueryui.com/draggable/#constrain-movement
+  FRONT - draggable via: https://jqueryui.com/draggable/#constrain-movement
 
   - resizable via: https://jqueryui.com/resizable/#constrain-area
 
-  - rendre zoomable via: http://jaukia.github.io/zoomooz/
+  FRONT - rendre zoomable via: http://jaukia.github.io/zoomooz/
 
   - peu importe ou on est, qu'on ait des boutons dans toutes les directions du
   canvas pour nous dire ce qui existe dans chaque direction pour y aller
@@ -56,29 +56,72 @@
 </head>
 <body >
   <div id="js-app" class="app-container  zoomContainer">
+
     <div class="zoomViewport  app-viewport">
       <button id="button">Box 6</button>
-      <div class="box box1  zoomTarget" data-targetsize="0.9" style="left:
-        100px; top:
-      300px;">joie<br/>lorem<br/>ipsum<br/>dolor<br/>sit<br/>amet<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie</div>
-      <div class="box box2  zoomTarget" data-targetsize="0.9" style="left: 535px; top: 400px;">from</div>
-      <div class="box box3  zoomTarget" data-targetsize="0.9" style="left: 523px; top: 111px;">banana</div>
-      <div class="box box4  zoomTarget" data-targetsize="0.9" style="left: 32px; top: 532px;">bleu</div>
-      <div class="box box5  zoomTarget" data-targetsize="0.9" style="left: 3332px; top: 532px;">bleu</div>
-      <div class="box box6  zoomTarget" data-targetsize="0.9" style="left: 32px; top: 3532px;">bleu</div>
+
+      <div class="box box1  js-box" data-id="1" style="left: 100px; top: 300px;">
+        <div class="drag-handle  js-drag-handle"></div>
+        <div class="content js-zoomable">
+          joie<br/>lorem<br/>ipsum<br/>dolor<br/>sit<br/>amet<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie
+        </div>
+      </div>
+
+      <div class="box box2  js-box" data-id="2" style="left: 535px; top:
+        400px;">
+        <div class="drag-handle  js-drag-handle"></div>
+        <div class="content js-zoomable">from</div>
+      </div>
+
+      <div class="box box3  js-box" data-id="3" style="left: 523px; top: 111px;">
+        <div class="drag-handle  js-drag-handle"></div>
+        <div class="content js-zoomable">banana</div>
+      </div>
+      <div class="box box4  js-box" data-id="4" style="left: 32px; top: 532px;">
+        <div class="drag-handle  js-drag-handle"></div>
+        <div class="content js-zoomable">bleu</div>
+      </div>
+      <div class="box box5  js-box" data-id="5" style="left: 3332px; top: 532px;">
+        <div class="drag-handle  js-drag-handle"></div>
+        <div class="content js-zoomable">mou</div>
+      </div>
+      <div class="box box6  js-box" data-id="6" style="left: 32px; top: 3532px;">
+        <div class="drag-handle  js-drag-handle"></div>
+        <div class="content js-zoomable">blanc</div>
+      </div>
     <div>
   </div>
+
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
   <script src="js/jquery.zoomooz.js"></script>
-  
+
   <script type="text/javascript">
     $(function(){
-        $("#button").click(function() {
-          $('html, body').animate({
-            scrollTop: $(".box6").offset().top
-          }, 1000);
-        });
+      // Zoomable UI
+      $(".js-zoomable").zoomTarget({
+        targetsize: 0.9,
+        duration: 300,
+        animationendcallback: function(){
+          console.log($(this).closest('.js-box').data('id'));
+        }
+      });
+
+      // draggable
+      $( ".js-box" ).draggable({
+        handle: ".js-drag-handle",
+        start: function(event, ui){
+          //event.stopPropagation();
+          //event.preventDefault();
+          console.log('started dragging');
+        }
+      });
+
+      $("#button").click(function() {
+        $('html, body').animate({
+          scrollTop: $(".box6").offset().top
+        }, 1000);
+      });
     });
   </script>
 </body>
