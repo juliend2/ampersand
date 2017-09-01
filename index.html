@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8"/>
+  <title>&</title>
+  
+  <!--
+  TODO:
+
+  - draggable via: https://jqueryui.com/draggable/#constrain-movement
+
+  - resizable via: https://jqueryui.com/resizable/#constrain-area
+
+  - rendre zoomable via: http://jaukia.github.io/zoomooz/
+
+  - peu importe ou on est, qu'on ait des boutons dans toutes les directions du
+  canvas pour nous dire ce qui existe dans chaque direction pour y aller
+  rapidement. (voir le code en dessous) (comme des fleches ou des tooltips qui
+  pointent vers les directions autour du viewport vers les autres destinations
+  pertinentes du canvas)
+
+  Definition:
+
+  Ça serait un genre de Aide-memoire, mais on-steroids, et dont la disposition
+  des snippets ne se défait pas si on l'affiche dans une résolution différente
+  par après.
+
+  Les objets pourraient être de différentes natures:
+  - avec markdown, on pourrait linker vers divers endroits dans le document.
+  car chaque element (noeud) aurait un slug, et ce slug pourrait etre le hash
+  pour l'atteindre par un scroll où il est.
+  - videos
+  - airtable views
+  - google maps
+  - images (from web or uploaded)
+  - links
+  - text (markdown or wysiwyg)
+  - each text box could display an image in the same canvas since every image
+  would make its own URL available somehow.
+  - exportable as a folder that would be read-only (in a zip folder that would
+  be self-contained)
+
+
+  implementation:
+
+  the text could be super-small when we load (natural zoom = 100%), and we
+  would rely on the zoomooz lib to display stuff correctly. That way, we could
+  have a relatively low-footprint page, with all the content that we would
+  need. It would be awesome.
+
+  -->
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css"/>
+  <!-- <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css"/>-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body >
+  <div id="js-app" class="app-container  zoomContainer">
+    <div class="zoomViewport  app-viewport">
+      <button id="button">Box 6</button>
+      <div class="box box1  zoomTarget" data-targetsize="0.9" style="left:
+        100px; top:
+      300px;">joie<br/>lorem<br/>ipsum<br/>dolor<br/>sit<br/>amet<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie<br/>joie</div>
+      <div class="box box2  zoomTarget" data-targetsize="0.9" style="left: 535px; top: 400px;">from</div>
+      <div class="box box3  zoomTarget" data-targetsize="0.9" style="left: 523px; top: 111px;">banana</div>
+      <div class="box box4  zoomTarget" data-targetsize="0.9" style="left: 32px; top: 532px;">bleu</div>
+      <div class="box box5  zoomTarget" data-targetsize="0.9" style="left: 3332px; top: 532px;">bleu</div>
+      <div class="box box6  zoomTarget" data-targetsize="0.9" style="left: 32px; top: 3532px;">bleu</div>
+    <div>
+  </div>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="js/jquery.zoomooz.js"></script>
+  
+  <script type="text/javascript">
+    $(function(){
+        $("#button").click(function() {
+          $('html, body').animate({
+            scrollTop: $(".box6").offset().top
+          }, 1000);
+        });
+    });
+  </script>
+</body>
+</html>
